@@ -1,9 +1,11 @@
 - check infinite scrolling works
-- on initial load it will load 10(INITIAL_MEMES_COUNT), and each scroll it will load another ITEMS_TO_LOAD_COUNT(10) items
-- go over the project and check all is typed. the types:
-    meme
-- check save works when editing meme 
-- check cancel works when editing meme
+- put INITIAL_MEMES_COUNT in env
+- put ITEMS_TO_LOAD_COUNT in env 
+- on initial load it will load INITIAL_MEMES_COUNT, 
+    and each scroll it will load another ITEMS_TO_LOAD_COUNT items
+- check there is a usage of mem type - 
+- save works when editing meme - V 
+- cancel works when editing meme - V
 - in database items should save only name, and image address
 
 - proxy architecture using Next.js API routes (Route Handlers in the App Router) if needed.
