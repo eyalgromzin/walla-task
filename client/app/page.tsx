@@ -33,10 +33,13 @@ export default function Home() {
   const [error, setError] = useState<string | null>(null);
 
   const observerTarget = useRef<HTMLDivElement>(null);
+  const isFetchingRef = useRef(false);
 
   // Fetch memes with pagination
   const fetchMemes = useCallback(async (pageNum: number) => {
-    if (isLoading) return;
+    if (isFetchingRef.current) return;
+    
+    isFetchingRef.current = true;
 
     setError(null);
     setIsLoading(true);
@@ -63,8 +66,9 @@ export default function Home() {
       setError(err?.message || 'Failed to fetch memes from server');
     } finally {
       setIsLoading(false);
+      isFetchingRef.current = false;
     }
-  }, [isLoading]);
+  }, []);
 
   // Initial load
   useEffect(() => {
@@ -79,7 +83,7 @@ export default function Home() {
           setPage((prev) => prev + 1);
         }
       },
-      { threshold: 0.1 }
+      { threshold: 0.1, rootMargin: '400px' }
     );
 
     if (observerTarget.current) {

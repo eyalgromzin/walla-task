@@ -1,5 +1,5 @@
 - check infinite scrolling works
-- on initial load it will load 10, and each scroll it will load another ITEMS_TO_LOAD_COUNT(10) items
+- on initial load it will load 10(INITIAL_MEMES_COUNT), and each scroll it will load another ITEMS_TO_LOAD_COUNT(10) items
 - go over the project and check all is typed. the types:
     meme
 - check save works when editing meme 
@@ -7,3 +7,5 @@
 - in database items should save only name, and image address
 
 - proxy architecture using Next.js API routes (Route Handlers in the App Router) if needed.
+
+- in case server is not running and client calls it , it shouldnt crash

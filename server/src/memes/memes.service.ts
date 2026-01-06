@@ -40,6 +40,7 @@ export class MemesService {
   }
 
   async initializeData() {
+    console.log('Initializing meme data...');
     const count = await this.memeModel.countDocuments();
 
     if (count === 0) {

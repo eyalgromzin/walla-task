@@ -16,12 +16,11 @@ export class MemesController {
   }
 
   @Get()
-  async getAllMemes(
+  async getMemes(
     @Query('page') page: string = '1',
     @Query('limit') limit: string = '10',
   ) {
     try {
-      await this.memesService.initializeData();
       const pageNum = parseInt(page);
       const limitNum = parseInt(limit);
       return await this.memesService.findAll(pageNum, limitNum);
