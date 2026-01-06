@@ -44,7 +44,7 @@ export default function Home() {
     setError(null);
     setIsLoading(true);
     try {
-      const response = await fetch(`/api/memes?page=${pageNum}&limit=10`);
+      const response = await fetch(`/api/memes?pageNumber=${pageNum}&pageSize=10`);
 
       if (!response.ok) {
         const text = await response.text();

@@ -17,12 +17,12 @@ export class MemesController {
 
   @Get()
   async getMemes(
-    @Query('page') page: string = '1',
-    @Query('limit') limit: string = '10',
+    @Query('pageNumber') pageNumber: string = '1',
+    @Query('pageSize') pageSize: string = '10',
   ) {
     try {
-      const pageNum = parseInt(page);
-      const limitNum = parseInt(limit);
+      const pageNum = parseInt(pageNumber);
+      const limitNum = parseInt(pageSize);
       return await this.memesService.findAll(pageNum, limitNum);
     } catch (error) {
       console.error('Error fetching memes:', error);
