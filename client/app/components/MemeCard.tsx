@@ -3,7 +3,7 @@ import styles from '../page.module.css';
 import { Meme } from '../types/meme';
 
 interface MemeCardProps {
-  meme: Meme;
+  meme: Meme & { key: string };
   onEdit: (meme: Meme) => void;
 }
 
@@ -12,6 +12,7 @@ export default function MemeCard({ meme, onEdit }: MemeCardProps) {
     <div className={styles.memeCard}>
       <div className={styles.memeImage}>
         <Image
+          key={meme.key}
           src={meme.url}
           alt={meme.name}
           width={280}
