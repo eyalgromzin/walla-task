@@ -147,7 +147,7 @@ export default function Home() {
         // Update memes list with new name
         setMemes((prevMemes) =>
           prevMemes.map((m) =>
-            m._id === editModal.meme._id ? updatedMeme.data : m
+            m._id === editModal.meme?._id ? updatedMeme.data : m
           )
         );
         handleCloseModal();
