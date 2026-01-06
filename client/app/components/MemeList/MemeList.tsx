@@ -51,7 +51,13 @@ export default function MemeList({ initialMemes, initialPage = 1, initialHasMore
       const data = await response.json();
 
       if (data.success) {
-        setMemes((prevMemes) => [...prevMemes, ...data.data]);
+        setMemes((prevMemes) => {
+          // Create a Set of existing IDs to prevent duplicates
+          const existingIds = new Set(prevMemes.map(m => m._id));
+          // Filter out any memes that already exist
+          const newMemes = data.data.filter((meme: Meme) => !existingIds.has(meme._id));
+          return [...prevMemes, ...newMemes];
+        });
         setHasMore(pageNum < data.pagination.pages);
       } else {
         throw new Error(data.error || 'Failed to fetch memes');
