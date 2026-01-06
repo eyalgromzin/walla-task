@@ -39,6 +39,25 @@ export class MemesService {
     return updatedMeme;
   }
 
+  private validateMemeName(name: string): boolean {
+    if (!name || typeof name !== 'string') {
+      return false;
+    }
+
+    const trimmedName = name.trim();
+
+    if (trimmedName.length === 0 || trimmedName.length > 200) {
+      return false;
+    }
+
+    // Check for suspicious patterns
+    if (/<script|javascript:|onerror|>|<|onload|onclick/i.test(trimmedName)) {
+      return false;
+    }
+
+    return true;
+  }
+
   async initializeData() {
     console.log('Initializing meme data...');
     const count = await this.memeModel.countDocuments();
@@ -51,10 +70,12 @@ export class MemesService {
         const data = await response.json();
 
         if (data.success && data.data.memes) {
-          const docs = data.data.memes.map((m: any) => ({
-            name: m.name,
-            url: m.url,
-          }));
+          const docs = data.data.memes
+            .filter((m: any) => this.validateMemeName(m.name))
+            .map((m: any) => ({
+              name: m.name,
+              url: m.url,
+            }));
 
           await this.memeModel.insertMany(docs);
           console.log(`Successfully loaded ${docs.length} memes into the database.`);

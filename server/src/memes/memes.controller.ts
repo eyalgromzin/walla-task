@@ -4,6 +4,30 @@ import { MemesService } from './memes.service';
 @Controller('api/memes')
 export class MemesController {
   constructor(private memesService: MemesService) {}
+
+  private validateMemeName(name: string): { valid: boolean; error?: string } {
+    if (!name || typeof name !== 'string') {
+      return { valid: false, error: 'Name is required' };
+    }
+
+    const trimmedName = name.trim();
+
+    if (trimmedName.length === 0) {
+      return { valid: false, error: 'Name cannot be empty' };
+    }
+
+    if (trimmedName.length > 200) {
+      return { valid: false, error: 'Name must be less than 200 characters' };
+    }
+
+    // Check for suspicious patterns
+    if (/<script|javascript:|onerror|>|<|onload|onclick/i.test(trimmedName)) {
+      return { valid: false, error: 'Name contains invalid characters or patterns' };
+    }
+
+    return { valid: true };
+  }
+
   @Post('initialize')
   async initializeMemes() {
     try {
@@ -33,11 +57,13 @@ export class MemesController {
   @Put(':id')
   async updateMeme(@Param('id') id: string, @Body() body: { name: string }) {
     try {
-      if (!body.name || typeof body.name !== 'string') {
-        return { success: false, error: 'Invalid name provided' };
+      const validation = this.validateMemeName(body.name);
+      if (!validation.valid) {
+        return { success: false, error: validation.error };
       }
 
-      const updatedMeme = await this.memesService.updateById(id, body.name);
+      const trimmedName = body.name.trim();
+      const updatedMeme = await this.memesService.updateById(id, trimmedName);
 
       if (!updatedMeme) {
         return { success: false, error: 'Meme not found' };

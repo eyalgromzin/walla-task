@@ -4,7 +4,7 @@ import { config } from '../config';
 
 @Module({
   imports: [
-    MongooseModule.forRoot(config.MONGODB_URI, {
+    MongooseModule.forRoot(config.MONGODB_URI ?? 'mongodb://localhost:27017', {
       dbName: 'walla_db',
       serverApi: { version: '1', strict: true, deprecationErrors: true },
     }),

@@ -11,8 +11,11 @@
 - no usage of css libraries - V
 - should be pretty and nice - V
 - proxy architecture using Next.js and nest - V
-- in case server is not running and client calls it , it should show nice message - V
+- in case server is not running/dead and client calls it , it should show nice message - V
 - initial items get should be 20 items - V
-- split css to smaller files and put each file in a folder with the using component - 
-- prevent insert harmful name into db when editing meme -  
+- split css to smaller files and put each file in a folder with the using component - V
+- add validations on name field in 
+    client - 
+    server - 
+- prevent insert harmful code into name field in db when editing meme -  
 - fix console errors and warnings in website - 

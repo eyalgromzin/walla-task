@@ -1,5 +1,6 @@
 import styles from './EditModal.module.css';
 import { EditModalState, Meme } from '../../types/meme';
+import { validateMemeName } from '../../utils/sanitize';
 
 interface EditModalProps {
   editModal: EditModalState;
@@ -24,6 +25,10 @@ export default function EditModal({
     }
   };
 
+  const validation = validateMemeName(editModal.newName);
+  const isSaveDisabled = editModal.isLoading || !validation.valid;
+
+
   return (
     <div
       className={styles.modalOverlay}
@@ -43,7 +48,16 @@ export default function EditModal({
               onChange={(e) => onNameChange(e.target.value)}
               placeholder="Enter new meme name"
               autoFocus
+              maxLength={200}
             />
+            {!validation.valid && validation.error && (
+              <div style={{ color: '#d32f2f', fontSize: '12px', marginTop: '8px' }}>
+                {validation.error}
+              </div>
+            )}
+            <div style={{ color: '#999', fontSize: '12px', marginTop: '4px' }}>
+              {editModal.newName.length}/200 characters
+            </div>
           </div>
         </div>
         <div className={styles.modalFooter}>
@@ -57,7 +71,8 @@ export default function EditModal({
           <button
             className={styles.buttonPrimary}
             onClick={onSave}
-            disabled={editModal.isLoading || !editModal.newName.trim()}
+            disabled={isSaveDisabled}
+            title={!validation.valid ? validation.error : 'Save changes'}
           >
             {editModal.isLoading ? 'Saving...' : 'Save'}
           </button>

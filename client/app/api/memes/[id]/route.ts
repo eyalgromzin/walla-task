@@ -1,6 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { config } from '@/config';
 
+// Import validation function
+import { validateMemeName } from '../../../utils/sanitize';
+
 interface Params {
   id: string;
 }
@@ -13,9 +16,11 @@ export async function PUT(
     const { id } = await context.params;
     const { name } = await request.json();
 
-    if (!name || typeof name !== 'string') {
+    // Validate input
+    const validation = validateMemeName(name);
+    if (!validation.valid) {
       return NextResponse.json(
-        { success: false, error: 'Invalid name provided' },
+        { success: false, error: validation.error },
         { status: 400 }
       );
     }
