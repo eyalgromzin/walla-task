@@ -1,8 +1,8 @@
 import styles from './page.module.css';
 import { Meme } from './types/meme';
-import Header from './components/Header';
-import ErrorBanner from './components/ErrorBanner';
-import MemeList from './components/MemeList';
+import Header from './components/Header/Header';
+import ErrorBanner from './components/ErrorBanner/ErrorBanner';
+import MemeList from './components/MemeList/MemeList';
 import { config } from '@/config';
 
 async function getInitialMemes() {

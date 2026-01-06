@@ -1,0 +1,10 @@
+.errorBanner {
+  max-width: 1200px;
+  margin: 0 auto 1.5rem;
+  background: #fff2f2;
+  border: 1px solid #ffcccc;
+  color: #990000;
+  padding: 1rem 1.25rem;
+  border-radius: 8px;
+  font-size: 0.95rem;
+}
