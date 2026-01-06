@@ -44,7 +44,10 @@ export default function Home() {
     setError(null);
     setIsLoading(true);
     try {
-      const response = await fetch(`/api/memes?pageNumber=${pageNum}&pageSize=10`);
+      const initialCount = process.env.INITIAL_MEMES_COUNT || '10';
+      const pageSize = process.env.PAGE_SIZE || '10';
+      const currentPageSize = pageNum === 1 ? initialCount : pageSize;
+      const response = await fetch(`/api/memes?pageNumber=${pageNum}&pageSize=${currentPageSize}`);
 
       if (!response.ok) {
         const text = await response.text();
@@ -83,7 +86,7 @@ export default function Home() {
           setPage((prev) => prev + 1);
         }
       },
-      { threshold: 0.1, rootMargin: '400px' }
+      { threshold: 0.1, rootMargin: '100px' }
     );
 
     if (observerTarget.current) {
