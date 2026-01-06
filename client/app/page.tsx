@@ -1,22 +1,13 @@
 'use client';
 
 import { useState, useEffect, useRef, useCallback } from 'react';
-import Image from 'next/image';
 import styles from './page.module.css';
-
-interface Meme {
-  _id: string;
-  id: string;
-  name: string;
-  url: string;
-}
-
-interface EditModalState {
-  isOpen: boolean;
-  meme: Meme | null;
-  newName: string;
-  isLoading: boolean;
-}
+import { Meme, EditModalState } from './types/meme';
+import Header from './components/Header';
+import ErrorBanner from './components/ErrorBanner';
+import MemeCard from './components/MemeCard';
+import EditModal from './components/EditModal';
+import LoadingSpinner from './components/LoadingSpinner';
 
 export default function Home() {
   const [memes, setMemes] = useState<Meme[]>([]);
@@ -162,29 +153,12 @@ export default function Home() {
     }
   };
 
-  // Handle modal background click
-  const handleModalBackgroundClick = (e: React.MouseEvent) => {
-    if (e.target === e.currentTarget) {
-      handleCloseModal();
-    }
-  };
-
   return (
     <div className={styles.container}>
-      <header className={styles.header}>
-        <h1 className={styles.title}>Meme Gallery</h1>
-        <p className={styles.subtitle}>Browse and edit your favorite memes</p>
-      </header>
+      <Header />
 
       {error ? (
-        <div className={styles.errorBanner}>
-          <strong>Error:</strong> {error}
-          <div style={{ marginTop: 8 }}>
-            Please check your MongoDB connection in `.env.local` and ensure the
-            database is reachable. If using Atlas, verify your connection string
-            and IP whitelist.
-          </div>
-        </div>
+        <ErrorBanner error={error} />
       ) : memes.length === 0 && !isLoading ? (
         <div className={styles.empty}>
           <div className={styles.emptyIcon}>📭</div>
@@ -194,38 +168,15 @@ export default function Home() {
         <>
           <div className={styles.listContainer}>
             {memes.map((meme) => (
-              <div key={meme._id} className={styles.memeCard}>
-                <div className={styles.memeImage}>
-                  <Image
-                    src={meme.url}
-                    alt={meme.name}
-                    width={280}
-                    height={200}
-                    priority={false}
-                    onError={(e) => {
-                      const img = e.target as HTMLImageElement;
-                      img.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="280" height="200"%3E%3Crect fill="%23f0f0f0" width="280" height="200"/%3E%3Ctext x="50%25" y="50%25" dominant-baseline="middle" text-anchor="middle" font-family="system-ui" font-size="14" fill="%23999"%3EImage not available%3C/text%3E%3C/svg%3E';
-                    }}
-                  />
-                </div>
-                <div className={styles.memeContent}>
-                  <h3 className={styles.memeName}>{meme.name}</h3>
-                  <button
-                    className={styles.editButton}
-                    onClick={() => handleEditClick(meme)}
-                  >
-                    ✏️ Edit
-                  </button>
-                </div>
-              </div>
+              <MemeCard
+                key={meme._id}
+                meme={meme}
+                onEdit={handleEditClick}
+              />
             ))}
           </div>
 
-          {isLoading && (
-            <div className={styles.loading}>
-              <div className={styles.loadingSpinner}></div>
-            </div>
-          )}
+          {isLoading && <LoadingSpinner />}
 
           {!hasMore && memes.length > 0 && (
             <div className={styles.endMessage}>
@@ -237,53 +188,14 @@ export default function Home() {
         </>
       )}
 
-      {/* Edit Modal */}
-      {editModal.isOpen && editModal.meme && (
-        <div
-          className={styles.modalOverlay}
-          onClick={handleModalBackgroundClick}
-        >
-          <div className={styles.modalContent}>
-            <div className={styles.modalHeader}>
-              <h2 className={styles.modalTitle}>Edit Meme Name</h2>
-            </div>
-            <div className={styles.modalBody}>
-              <div className={styles.formGroup}>
-                <label className={styles.formLabel}>Meme Name</label>
-                <input
-                  type="text"
-                  className={styles.formInput}
-                  value={editModal.newName}
-                  onChange={(e) =>
-                    setEditModal((prev) => ({
-                      ...prev,
-                      newName: e.target.value,
-                    }))
-                  }
-                  placeholder="Enter new meme name"
-                  autoFocus
-                />
-              </div>
-            </div>
-            <div className={styles.modalFooter}>
-              <button
-                className={styles.buttonSecondary}
-                onClick={handleCloseModal}
-                disabled={editModal.isLoading}
-              >
-                Cancel
-              </button>
-              <button
-                className={styles.buttonPrimary}
-                onClick={handleSave}
-                disabled={editModal.isLoading || !editModal.newName.trim()}
-              >
-                {editModal.isLoading ? 'Saving...' : 'Save'}
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
+      <EditModal
+        editModal={editModal}
+        onClose={handleCloseModal}
+        onSave={handleSave}
+        onNameChange={(name) =>
+          setEditModal((prev) => ({ ...prev, newName: name }))
+        }
+      />
     </div>
   );
 }
