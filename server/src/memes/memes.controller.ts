@@ -1,4 +1,4 @@
-import { Controller, Get, Put, Param, Body, Query } from '@nestjs/common';
+import { Controller, Get, Post, Put, Param, Body, Query } from '@nestjs/common';
 import { MemesService } from './memes.service';
 
 @Controller('api/memes')
@@ -29,7 +29,6 @@ export class MemesController {
       console.error('Error fetching memes:', error);
       return { success: false, error: 'Failed to fetch memes' };
     }
-  }
   }
 
   @Put(':id')
