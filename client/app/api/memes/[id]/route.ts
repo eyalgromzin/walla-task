@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { config } from '@/config';
 
 interface Params {
   id: string;
@@ -20,7 +21,7 @@ export async function PUT(
     }
 
     // Call NestJS server
-    const serverUrl = `${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001'}/api/memes/${id}`;
+    const serverUrl = `${config.NEXT_PUBLIC_API_URL}/api/memes/${id}`;
     const response = await fetch(serverUrl, {
       method: 'PUT',
       headers: {

@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { config } from '@/config';
 
 export async function GET(request: NextRequest) {
   try {
@@ -8,7 +9,7 @@ export async function GET(request: NextRequest) {
     const pageSize = url.searchParams.get('pageSize') || '10';
 
     // Call NestJS server
-    const serverUrl = `${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001'}/api/memes?pageNumber=${pageNumber}&pageSize=${pageSize}`;
+    const serverUrl = `${config.NEXT_PUBLIC_API_URL}/api/memes?pageNumber=${pageNumber}&pageSize=${pageSize}`;
     const response = await fetch(serverUrl);
 
     if (!response.ok) {

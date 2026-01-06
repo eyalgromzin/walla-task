@@ -8,6 +8,7 @@ import ErrorBanner from './components/ErrorBanner';
 import MemeCard from './components/MemeCard';
 import EditModal from './components/EditModal';
 import LoadingSpinner from './components/LoadingSpinner';
+import { config } from '@/config';
 
 export default function Home() {
   const [memes, setMemes] = useState<Meme[]>([]);
@@ -34,8 +35,8 @@ export default function Home() {
     setError(null);
     setIsLoading(true);
     try {
-      const initialCount = process.env.INITIAL_MEMES_COUNT || '10';
-      const pageSize = process.env.PAGE_SIZE || '10';
+      const initialCount = config.INITIAL_MEMES_COUNT;
+      const pageSize = config.PAGE_SIZE;
       const currentPageSize = pageNum === 1 ? initialCount : pageSize;
       const response = await fetch(`/api/memes?pageNumber=${pageNum}&pageSize=${currentPageSize}`);
 
@@ -76,7 +77,7 @@ export default function Home() {
           setPage((prev) => prev + 1);
         }
       },
-      { threshold: 0.1, rootMargin: '100px' }
+      { threshold: 0.1, rootMargin: '400px' }
     );
 
     if (observerTarget.current) {

@@ -1,16 +1,12 @@
 import { Module, Logger, OnModuleInit } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
+import { config } from '../config';
 
 @Module({
   imports: [
-    MongooseModule.forRootAsync({
-      useFactory: (configService: ConfigService) => ({
-        uri: configService.get<string>('MONGODB_URI'),
-        dbName: 'walla_db',
-        serverApi: { version: '1', strict: true, deprecationErrors: true },
-      }),
-      inject: [ConfigService],
+    MongooseModule.forRoot(config.MONGODB_URI, {
+      dbName: 'walla_db',
+      serverApi: { version: '1', strict: true, deprecationErrors: true },
     }),
   ],
 })
