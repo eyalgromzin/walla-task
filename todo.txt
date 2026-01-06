@@ -5,3 +5,5 @@
 - check save works when editing meme 
 - check cancel works when editing meme
 - in database items should save only name, and image address
+
+- proxy architecture using Next.js API routes (Route Handlers in the App Router) if needed.

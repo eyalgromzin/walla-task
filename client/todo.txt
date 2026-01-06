@@ -1,7 +1,0 @@
-- check infinite scrolling works
-- on initial load it will load 10, and each scroll it will load another ITEMS_TO_LOAD_COUNT(10) items
-- go over the project and check all is typed. the types:
-    meme
-- check save works when editing meme 
-- check cancel works when editing meme
-- in database items should save only name, and image address
