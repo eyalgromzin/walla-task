@@ -8,5 +8,6 @@ import { MemesController } from './memes.controller';
   imports: [MongooseModule.forFeature([{ name: Meme.name, schema: MemeSchema }])],
   controllers: [MemesController],
   providers: [MemesService],
+  exports: [MemesService],
 })
 export class MemesModule {}
