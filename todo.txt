@@ -1,21 +1,22 @@
-- on initial server load - load memes from url if db is empty - ???
+- click outside modal it should close - V
+- on initial server load - load memes from url if db is empty - V
 - infinite scrolling works - V
-- on initial load it will load INITIAL_MEMES_COUNT - V, 
-- each scroll to bottom it will load another ITEMS_TO_LOAD_COUNT items - V
+- on initial load it will load INITIAL_MEMES_COUNT - V 
+- each scroll to bottom it will load another PAGE_SIZE items - V
 - split page.tsx into smaller components - V
-- create and use meme type - V 
+- create and use meme type interface - V 
 - save works when editing meme - V
 - cancel works when editing meme - V
 - database items should save only name, and image address - V
-- server should be nest with mongo - V
+- server should be nest with mongoose - V
 - no usage of css libraries - V
 - should be pretty and nice - V
 - proxy architecture using Next.js and nest - V
 - in case server is not running/dead and client calls it , it should show nice message - V
 - initial items get should be 20 items - V
-- split css to smaller files and put each file in a folder with the using component - V
-- add validations on name field in 
-    client - 
-    server - 
-- prevent insert harmful code into name field in db when editing meme -  
-- fix console errors and warnings in website - 
+- split css to smaller files and put each file in a folder with the component - V
+- add validations on name field to prevent harmful code: 
+    client - V
+    check validation in server using postman - V
+- fix console errors and warnings in website - V 
+- go over all code manually and see if something looks strange or not perfect - 
