@@ -1,6 +1,4 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { connectDB } from '@/lib/mongodb';
-import { Meme } from '@/lib/memeSchema';
 
 interface Params {
   id: string;
@@ -21,25 +19,22 @@ export async function PUT(
       );
     }
 
-    await connectDB();
+    // Call NestJS server
+    const serverUrl = `${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001'}/api/memes/${id}`;
+    const response = await fetch(serverUrl, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ name }),
+    });
 
-    const updatedMeme = await Meme.findByIdAndUpdate(
-      id,
-      { name },
-      { new: true, select: 'name url' }
-    );
-
-    if (!updatedMeme) {
-      return NextResponse.json(
-        { success: false, error: 'Meme not found' },
-        { status: 404 }
-      );
+    if (!response.ok) {
+      throw new Error('Failed to update from server');
     }
 
-    return NextResponse.json({
-      success: true,
-      data: updatedMeme,
-    });
+    const data = await response.json();
+    return NextResponse.json(data);
   } catch (error) {
     console.error('Error updating meme:', error);
     return NextResponse.json(
