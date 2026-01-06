@@ -22,7 +22,6 @@ export default function Home() {
   });
 
   const [error, setError] = useState<string | null>(null);
-
   const observerTarget = useRef<HTMLDivElement>(null);
   const isFetchingRef = useRef(false);
 

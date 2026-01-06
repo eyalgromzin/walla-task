@@ -22,8 +22,8 @@ export class MemesController {
   ) {
     try {
       const pageNum = parseInt(pageNumber);
-      const limitNum = parseInt(pageSize);
-      return await this.memesService.findAll(pageNum, limitNum);
+      const pageSizeNum = parseInt(pageSize);
+      return await this.memesService.findAll(pageNum, pageSizeNum);
     } catch (error) {
       console.error('Error fetching memes:', error);
       return { success: false, error: 'Failed to fetch memes' };
