@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Put, Param, Body, Query } from '@nestjs/common';
+import { Controller, Get, Post, Patch, Param, Body, Query } from '@nestjs/common';
 import { MemesService } from './memes.service';
 
 @Controller('api/memes')
@@ -54,7 +54,7 @@ export class MemesController {
     }
   }
 
-  @Put(':id')
+  @Patch(':id')
   async updateMeme(@Param('id') id: string, @Body() body: { name: string }) {
     try {
       const validation = this.validateMemeName(body.name);

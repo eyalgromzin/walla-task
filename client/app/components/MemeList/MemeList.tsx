@@ -128,7 +128,7 @@ export default function MemeList({ initialMemes, initialPage = 1, initialHasMore
 
     try {
       const response = await fetch(`/api/memes/${editModal.meme._id}`, {
-        method: 'PUT',
+        method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
         },

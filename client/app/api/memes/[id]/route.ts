@@ -8,7 +8,7 @@ interface Params {
   id: string;
 }
 
-export async function PUT(
+export async function PATCH(
   request: NextRequest,
   context: { params: Promise<Params> }
 ) {
@@ -28,7 +28,7 @@ export async function PUT(
     // Call NestJS server
     const serverUrl = `${config.NEXT_PUBLIC_API_URL}/api/memes/${id}`;
     const response = await fetch(serverUrl, {
-      method: 'PUT',
+      method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
       },
