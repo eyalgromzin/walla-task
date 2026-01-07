@@ -54,8 +54,8 @@ export class MemesController {
     }
   }
 
-  @Patch(':id')
-  async updateMeme(@Param('id') id: string, @Body() body: { name: string }) {
+  @Patch()
+  async updateMeme(@Body() body: { id: string; name: string }) {
     try {
       const validation = this.validateMemeName(body.name);
       if (!validation.valid) {
@@ -63,7 +63,7 @@ export class MemesController {
       }
 
       const trimmedName = body.name.trim();
-      const updatedMeme = await this.memesService.updateById(id, trimmedName);
+      const updatedMeme = await this.memesService.updateById(body.id, trimmedName);
 
       if (!updatedMeme) {
         return { success: false, error: 'Meme not found' };

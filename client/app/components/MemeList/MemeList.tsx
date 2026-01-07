@@ -127,12 +127,12 @@ export default function MemeList({ initialMemes, initialPage = 1, initialHasMore
     setEditModal((prev) => ({ ...prev, isLoading: true }));
 
     try {
-      const response = await fetch(`/api/memes/${editModal.meme._id}`, {
+      const response = await fetch(`/api/memes`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ name: editModal.newName }),
+        body: JSON.stringify({ id: editModal.meme._id, name: editModal.newName }),
       });
 
       if (response.ok) {

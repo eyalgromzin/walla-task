@@ -13,8 +13,7 @@ export async function PATCH(
   context: { params: Promise<Params> }
 ) {
   try {
-    const { id } = await context.params;
-    const { name } = await request.json();
+    const { id, name } = await request.json();
 
     // Validate input
     const validation = validateMemeName(name);
@@ -26,13 +25,13 @@ export async function PATCH(
     }
 
     // Call NestJS server
-    const serverUrl = `${config.NEXT_PUBLIC_API_URL}/api/memes/${id}`;
+    const serverUrl = `${config.NEXT_PUBLIC_API_URL}/api/memes`;
     const response = await fetch(serverUrl, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ name }),
+      body: JSON.stringify({ id, name }),
     });
 
     if (!response.ok) {
