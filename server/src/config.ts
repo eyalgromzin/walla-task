@@ -17,13 +17,4 @@ export const config = {
    */
   MONGODB_URI: process.env.MONGODB_URI,
 
-  /**
-   * MongoDB username (optional)
-   */
-  MONGO_USERNAME: process.env.MONGO_USERNAME,
-
-  /**
-   * MongoDB password (optional)
-   */
-  MONGO_PASSWORD: process.env.MONGO_PASSWORD,
 } as const;
