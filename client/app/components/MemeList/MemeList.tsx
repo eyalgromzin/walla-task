@@ -15,7 +15,7 @@ interface MemeListProps {
   initialHasMore?: boolean;
 }
 
-export default function MemeList({ initialMemes, initialPage = 1, initialHasMore = true }: MemeListProps) {
+export default function MemeList({ initialMemes, initialPage = 0, initialHasMore = true }: MemeListProps) {
   const [memes, setMemes] = useState<Meme[]>(initialMemes);
   const [page, setPage] = useState(initialPage);
   const [isLoading, setIsLoading] = useState(false);
