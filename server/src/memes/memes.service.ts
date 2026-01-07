@@ -86,7 +86,7 @@ export class MemesService {
         console.error('Error initializing data:', error);
       }
     } else {
-      console.log(`Database already contains ${count} memes.`);
+      console.log(`Database already contains data`);
     }
   }
 }
