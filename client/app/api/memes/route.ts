@@ -5,7 +5,7 @@ export async function GET(request: NextRequest) {
   try {
     // Get pagination parameters
     const url = new URL(request.url);
-    const pageNumber = url.searchParams.get('pageNumber') || '1';
+    const pageNumber = url.searchParams.get('pageNumber') || '0';
     const pageSize = url.searchParams.get('pageSize') || '10';
 
     // Call NestJS server

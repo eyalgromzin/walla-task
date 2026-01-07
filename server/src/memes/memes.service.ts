@@ -7,8 +7,8 @@ import { Meme, MemeDocument } from './meme.schema';
 export class MemesService {
   constructor(@InjectModel(Meme.name) private memeModel: Model<MemeDocument>) {}
 
-  async findAll(page: number = 1, pageSize: number = 10) {
-    const skip = (page - 1) * pageSize;
+  async findAll(page: number = 0, pageSize: number = 10) {
+    const skip = (page) * pageSize;
 
     const [data, total] = await Promise.all([
       this.memeModel.find().select('name url').skip(skip).limit(pageSize).exec(),

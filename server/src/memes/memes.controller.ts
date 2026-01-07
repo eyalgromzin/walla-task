@@ -19,7 +19,7 @@ export class MemesController {
 
   @Get()
   async getMemes(
-    @Query('pageNumber') pageNumber: string = '1',
+    @Query('pageNumber') pageNumber: string = '0',
     @Query('pageSize') pageSize: string = '10',
   ) {
     try {
