@@ -1,6 +1,7 @@
 import { Controller, Get, Post, Patch, Param, Body, Query } from '@nestjs/common';
 import { MemesService } from './memes.service';
 import { validateMemeName } from '../utils';
+import { UpdateMemeDto } from './update-meme.dto';
 
 @Controller('api/memes')
 export class MemesController {
@@ -33,7 +34,7 @@ export class MemesController {
   }
 
   @Patch()
-  async updateMeme(@Body() body: { id: string; name: string }) {
+  async updateMeme(@Body() body: UpdateMemeDto) {
     try {
       const validation = validateMemeName(body.name);
       if (!validation.valid) {
