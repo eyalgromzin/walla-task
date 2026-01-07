@@ -15,6 +15,6 @@ export const config = {
   /**
    * MongoDB connection URI
    */
-  MONGODB_URI: process.env.MONGODB_URI,
+  MONGODB_URI: process.env.MONGODB_URI || 'mongodb://localhost:27017/walla',
 
 } as const;

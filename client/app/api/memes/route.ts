@@ -9,7 +9,7 @@ export async function GET(request: NextRequest) {
     const pageSize = url.searchParams.get('pageSize') || '10';
 
     // Call NestJS server
-    const serverUrl = `${config.NEXT_PUBLIC_API_URL}/api/memes?pageNumber=${pageNumber}&pageSize=${pageSize}`;
+    const serverUrl = `${config.SERVER_URL}/api/memes?pageNumber=${pageNumber}&pageSize=${pageSize}`;
     const response = await fetch(serverUrl);
 
     if (!response.ok) {
@@ -40,7 +40,7 @@ export async function PATCH(request: NextRequest) {
     }
 
     // Call NestJS server
-    const serverUrl = `${config.NEXT_PUBLIC_API_URL}/api/memes`;
+    const serverUrl = `${config.SERVER_URL}/api/memes`;
     const response = await fetch(serverUrl, {
       method: 'PATCH',
       headers: {

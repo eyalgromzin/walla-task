@@ -25,7 +25,7 @@ export async function PATCH(
     }
 
     // Call NestJS server
-    const serverUrl = `${config.NEXT_PUBLIC_API_URL}/api/memes`;
+    const serverUrl = `${config.SERVER_URL}/api/memes`;
     const response = await fetch(serverUrl, {
       method: 'PATCH',
       headers: {

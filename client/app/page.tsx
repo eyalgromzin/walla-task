@@ -8,7 +8,7 @@ import { config } from '@/config';
 async function getInitialMemes() {
   try {
     const initialCount = config.INITIAL_MEMES_COUNT;
-    const serverUrl = `${config.NEXT_PUBLIC_API_URL}/api/memes?pageNumber=0&pageSize=${initialCount}`;
+    const serverUrl = `${config.SERVER_URL}/api/memes?pageNumber=0&pageSize=${initialCount}`;
     
     const response = await fetch(serverUrl, {
       cache: 'no-store', // Ensure fresh data on each request
