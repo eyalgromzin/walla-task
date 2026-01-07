@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { config } from '@/config';
 
 // Import validation function
-import { validateMemeName } from '../../../utils/sanitize';
+import { validateMemeName } from '../../../utils/utils';
 
 interface Params {
   id: string;

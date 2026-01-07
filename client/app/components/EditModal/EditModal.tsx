@@ -1,6 +1,6 @@
 import styles from './EditModal.module.css';
 import { EditModalState, Meme } from '../../types/meme';
-import { validateMemeName } from '../../utils/sanitize';
+import { validateMemeName } from '../../utils/utils';
 
 interface EditModalProps {
   editModal: EditModalState;
