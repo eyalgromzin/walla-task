@@ -1,3 +1,7 @@
+import * as dotenv from 'dotenv';
+
+dotenv.config();
+
 /**
  * Server configuration proxy for environment variables with default values
  */
