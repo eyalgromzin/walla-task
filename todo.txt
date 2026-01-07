@@ -19,7 +19,7 @@
     client - V
     check validation in server using postman - V
 - fix console errors and warnings in website - V 
-- go over all code manually and see if something looks strange or not perfect - 
+- go over all code manually and see if something looks strange or not perfect - V
 
 - used PATCH to update meme 
 - used dotenv to handle .env
