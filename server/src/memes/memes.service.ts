@@ -7,11 +7,13 @@ import { Meme, MemeDocument } from './meme.schema';
 export class MemesService {
   constructor(@InjectModel(Meme.name) private memeModel: Model<MemeDocument>) {}
 
+  private readonly FIELDS_TO_GET = 'name url';
+
   async findAll(page: number = 0, pageSize: number = 10) {
     const skip = (page) * pageSize;
 
     const [data, total] = await Promise.all([
-      this.memeModel.find().select('name url').skip(skip).limit(pageSize).exec(),
+      this.memeModel.find().select(this.FIELDS_TO_GET).skip(skip).limit(pageSize).exec(),
       this.memeModel.countDocuments(),
     ]);
 
@@ -28,13 +30,13 @@ export class MemesService {
   }
 
   async findById(id: string) {
-    const meme = await this.memeModel.findById(id).select('name url').exec();
+    const meme = await this.memeModel.findById(id).select(this.FIELDS_TO_GET).exec();
     return meme;
   }
 
   async updateById(id: string, name: string) {
     const updatedMeme = await this.memeModel
-      .findByIdAndUpdate(id, { name }, { new: true, select: 'name url' })
+      .findByIdAndUpdate(id, { name }, { new: true, select: this.FIELDS_TO_GET })
       .exec();
     return updatedMeme;
   }
